@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// To create a migration: yarn prisma migrate dev
+
+model User {
+  id           String        @id @default(uuid())
+  name         String
+  email        String
+  password     String
+  clients      Client[]
+  employee     Employee[]
+  appointments Appointment[]
+  services     Service[]
+  invoices     Invoice[]
+  photo_perfil String?
+}
+
+model Client {
+  id           String        @id @default(uuid())
+  photo        String
+  name         String
+  email        String
+  contact      String
+  observer     String
+  cpf          String
+  user         User          @relation(fields: [userId], references: [id])
+  userId       String
+  appointments Appointment[]
+  invoices     Invoice[]
+  images       Image[]
+}
+
+model Employee {
+  id           String        @id @default(uuid())
+  photo        String
+  name         String
+  email        String
+  contact      String
+  observer     String
+  cpf          String
+  user         User          @relation(fields: [userId], references: [id])
+  userId       String
+  appointments Appointment[]
+}
+
+model Appointment {
+  id           String    @id @default(uuid())
+  date         String
+  user         User      @relation(fields: [userId], references: [id])
+  userId       String
+  client       Client    @relation(fields: [clientId], references: [id])
+  clientId     String
+  service      Service?  @relation(fields: [serviceId], references: [id])
+  serviceId    String
+  confirmation Boolean
+  created_at   DateTime? @default(now())
+  price        String
+  employee     Employee  @relation(fields: [employeeId], references: [id])
+  employeeId   String
+  invoice      Invoice[]
+  payment      Boolean
+}
+
+model Service {
+  id           String        @id @default(uuid())
+  name         String
+  description  String
+  price        String
+  user         User          @relation(fields: [userId], references: [id])
+  userId       String
+  appointments Appointment[]
+  Invoice      Invoice[]
+}
+
+model Invoice {
+  id              String      @id @default(uuid())
+  date            DateTime    @default(now())
+  value           Float
+  service         Service     @relation(fields: [serviceId], references: [id])
+  serviceId       String
+  appointmentDate DateTime
+  appointmentId   String
+  user            User        @relation(fields: [userId], references: [id])
+  userId          String
+  client          Client      @relation(fields: [clientId], references: [id])
+  clientId        String
+  Appointment     Appointment @relation(fields: [appointmentId], references: [id])
+}
+
+model Image {
+  id       String   @id @default(uuid())
+  img      String[]
+  client   Client   @relation(fields: [clientId], references: [id])
+  clientId String
+}

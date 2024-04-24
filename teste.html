@@ -1,0 +1,42 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet">
+
+
+<div id='links-container'>
+    <div class='bar'>
+      <div>
+                <span class="titulo" style="font-family: 'Fira Sans';  font-weight: bold;">Publicações no LinkedIn</span>
+      </div>
+      <div class="">
+        <div class="filtro">
+  <label for="mes">Filtrar por:</label>
+  <select id="mes">
+    <option value="ult_mes">último mês</option>
+    <option value="ult_ano">último ano</option>
+  </select>
+
+</div>
+      </div>
+    </div>
+
+    <!-- Loop para exibir as postagens do LinkedIn -->
+    <div class="container-postagens" ng-controller="api.controller as c">
+        <div class="postagem-linkedin" ng-repeat="postagem in data.linkedinPosts">
+            <a href="{{ postagem.u_url }}" target="_blank" class='box_postagem'>
+                  <!--<img class="image" src="{{ postagem.u_image }}" alt="Imagem da postagem"
+                    style="width: 100px; height: 100px;">-->
+<img class="image" ng-src="https://extremedigitalconsultoriaerepresenta11.service-now.com/{{postagem.u_image}}.iix" alt="Imagem da postagem">
+  
+                <p class="descricao">{{ c.limitarDescricao(postagem) }}</p>
+            </a>
+        </div>
+        <div ng-if="data.linkedinPosts.length === 0">
+            <p class="sem-postagens">Não há postagens do LinkedIn disponíveis.</p>
+        </div>
+    </div>
+
+
+    <!-- Mensagem caso não haja postagens -->
+
+</div>

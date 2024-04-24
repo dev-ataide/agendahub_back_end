@@ -1,0 +1,32 @@
+.container-breadcrumb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f3f4f6;
+}
+
+.nav-breadcrumb {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ol-breadcrumb {
+    list-style: none;
+    padding: 0;
+    display: inline-flex;
+    margin: 0;
+}
+
+.li-breadcrumb {
+    display: flex;
+    align-items: center;
+}
+
+.a-breadcrumb {
+    color: #4b5563;
+    transition: color 0.3s ease;
+}
