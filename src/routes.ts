@@ -20,7 +20,7 @@ import { UpdateServiceController } from './controllers/servicos/UpdateServiceCon
 
     // Appointment
 import { CreateAppointmentController } from './controllers/appointment/CreateAppointmentController';
-// import { ListAppointmentByClientController } from './controllers/appointment/ListAppointmentByClientController';
+import { ListAppointmentByClientController } from './controllers/appointment/ListAppointmentByClientController';
 import { ListAppointmentController } from './controllers/appointment/ListAppointmentController';
 
 
@@ -67,7 +67,7 @@ router.put('/service/:id', isAuthenticated, new UpdateServiceController().handle
 
 router.post('/appointment', isAuthenticated, new CreateAppointmentController().handle)
 router.get('/appointmentlist', isAuthenticated, new ListAppointmentController().handle);
-// router.get('/appointments/:clientId', isAuthenticated, new ListAppointmentByClientController().handle);
+router.get('/appointments/:userId/:clientId', isAuthenticated, new ListAppointmentByClientController().handle);
 
 
 // -- Rotas de IMAGENS
