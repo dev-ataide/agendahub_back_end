@@ -1,20 +1,20 @@
-// No arquivo ListAppointmentController.ts
+// No arquivo ListAppointmentByPaymentIsTrueController.ts
 import { Request, Response } from 'express';
 import { Appointment } from '@prisma/client'; // Adicione Appointment aqui
-import { ListAppointmentService } from '../../services/appointment/ListAppointmentService';
+import { AppointmentPaymentIsTrue } from '../../services/dashboard/AppointmentsPaymentIsTrueService';
 import { Decimal } from '@prisma/client/runtime/library';
 
-class ListAppointmentController {
+class ListAppointmentByPaymentIsTrueController {
   async handle(req: Request, res: Response) {
     const userId = req.query.userId as string; // Ajuste para acessar o userId da URL
   
 
-    const listAppointmentService = new ListAppointmentService();
+    const appointmentPaymentIsTrue = new AppointmentPaymentIsTrue();
 
-    const listAppointments = await listAppointmentService.execute({ userId });
+    const listAppointments = await appointmentPaymentIsTrue.execute({ userId });
 
     // Mapear os resultados para extrair informações relevantes
-    const formattedAppointments = listAppointments.map((appointment: Appointment & { user: { name: string }; employee: { contact: string, name: string, email: string, photo: string, cpf: string }; client: { contact: string, name: string, email: string, photo: string, cpf: string }; service?: { name: string, price: Decimal } }) => ({
+    const formattedAppointments = listAppointments.map((appointment: Appointment & { user: { name: string }; employee: { contact: string, name: string, email: string, photo: string, cpf: string }; client: { contact: string, name: string, email: string, photo: string, cpf: string }; service?: { name: string, price: Decimal} }) => ({
       id: appointment.id,
       userId: appointment.userId,
       userName: appointment.user.name,
@@ -38,4 +38,4 @@ class ListAppointmentController {
   }
 }
 
-export { ListAppointmentController };
+export { ListAppointmentByPaymentIsTrueController };

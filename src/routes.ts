@@ -30,6 +30,9 @@ import { isAuthenticated } from './middlewares/isAuthenticated'
 
 import { ListEmployeeController } from './controllers/employee/ListEmployee';
 import { CreateEmployeeController } from './controllers/employee/CreateEmployeeController';
+import { CreateClientPdf } from './services/client/ClientPdfService';
+import { ClientPdfController } from './controllers/client/ClientPdfController';
+import { ListAppointmentByPaymentIsTrueController } from './controllers/dashboards/AppointmentsPaymentIsTrueController';
 // import { CreateImageController } from './controllers/images/CreateImagesController';
 
 
@@ -49,6 +52,7 @@ router.get('/me', isAuthenticated,  new DetailuserController().handle )
 
 router.post('/client', isAuthenticated,   upload.single('file'), new CreateClientController().handle)
 router.get('/clientlist', isAuthenticated,  new ListClienteController().handle)
+// router.post('/clientpdf', isAuthenticated, upload.array('pdf'), new ClientPdfController().handle);
 
 // -- EMPLOYEE --
 
@@ -68,7 +72,7 @@ router.put('/service/:id', isAuthenticated, new UpdateServiceController().handle
 router.post('/appointment', isAuthenticated, new CreateAppointmentController().handle)
 router.get('/appointmentlist', isAuthenticated, new ListAppointmentController().handle);
 router.get('/appointments/:userId/:clientId', isAuthenticated, new ListAppointmentByClientController().handle);
-
+router.get('/appointments/paymenttrue', isAuthenticated, new ListAppointmentByPaymentIsTrueController().handle);
 
 // -- Rotas de IMAGENS
 
